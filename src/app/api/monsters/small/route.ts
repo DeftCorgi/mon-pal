@@ -1,10 +1,11 @@
 import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
-import { Monster, MonsterText } from "../../../../db/db";
+import { Monster, MonsterText } from "../../../../../db/db";
 
 export async function GET(request: NextApiRequest) {
   // retrieve large monster names only
   const result = await Monster.findAll({
+    where: { size: "small" },
     include: [{ model: MonsterText, where: { lang_id: "en" } }],
   });
 
