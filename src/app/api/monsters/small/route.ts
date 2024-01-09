@@ -11,6 +11,7 @@ export async function GET(request: NextApiRequest) {
 
   // flatten
   const monsters = result.map((monster: any) => ({
+    id: monster.id,
     name: monster.monster_texts[0].name,
   }));
 
