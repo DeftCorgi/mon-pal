@@ -4,9 +4,9 @@ module.exports = function (sequelize, DataTypes) {
     "monster_hitzone_text",
     {
       monster_hitzone_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: "monster_hitzone",
           key: "id",
@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       lang_id: {
         type: DataTypes.TEXT,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: "language",
           key: "id",
@@ -29,6 +30,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
+      underscored: true,
       tableName: "monster_hitzone_text",
       timestamps: false,
       indexes: [

@@ -4,13 +4,13 @@ import MonsterSelection from "@/components/monster-selection/monster-selection";
 const fetchLargeMonsters = async () => {
   const result = await fetch("http://localhost:3000/api/monsters/large");
   const json = await result.json();
-  return json.data;
+  return json.monsters;
 };
 
 const fetchSmallMonsters = async () => {
   const result = await fetch("http://localhost:3000/api/monsters/small");
   const json = await result.json();
-  return json.data;
+  return json.monsters;
 };
 
 async function Home() {

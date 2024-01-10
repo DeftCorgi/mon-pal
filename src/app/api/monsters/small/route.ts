@@ -1,6 +1,10 @@
 import type { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 import { Monster, MonsterText } from "../../../../../db/db";
+import {
+  ListMonstersResponseType,
+  MonsterType,
+} from "../../../../../types/api/api";
 
 export async function GET(request: NextApiRequest) {
   // retrieve large monster names only
@@ -10,10 +14,12 @@ export async function GET(request: NextApiRequest) {
   });
 
   // flatten
-  const monsters = result.map((monster: any) => ({
+  const monsters = result.map((monster: MonsterType) => ({
     id: monster.id,
     name: monster.monster_texts[0].name,
   }));
 
-  return NextResponse.json({ data: monsters }, { status: 200 });
+  const response: ListMonstersResponseType = { monsters };
+
+  return NextResponse.json(response, { status: 200 });
 }

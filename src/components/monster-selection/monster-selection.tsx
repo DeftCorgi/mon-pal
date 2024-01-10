@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useContext, useEffect, useState } from "react";
-import MonsterList from "../monster-list/monster-list";
+import MonsterList from "./monster-list/monster-list";
 import MonstersContext from "@/store/monsters-context";
 
 function MonsterSelection(props: { largeMonsters: any; smallMonsters: any }) {
