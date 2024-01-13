@@ -24,7 +24,7 @@ function MonsterList(props: {
       return (
         <li key={monster.id}>
           <button
-            className="flex pl-20 gap-4 bg-blue-100 px-2 py-2 mb-2 text-lg w-full hover:bg-blue-300 hover:scale-x-110 justify-start items-center"
+            className="flex pl-2 gap-4 bg-blue-100 px-2 py-2 mb-2 text-lg w-full hover:bg-blue-300 hover:scale-x-110 justify-start items-center"
             onClick={() => onSelectMonster(monster.id)}
           >
             <Image

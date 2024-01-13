@@ -4,9 +4,9 @@ module.exports = function (sequelize, DataTypes) {
     "item_text",
     {
       item_id: {
-        autoIncrement: true,
         type: DataTypes.INTEGER,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: "item",
           key: "id",
@@ -16,6 +16,7 @@ module.exports = function (sequelize, DataTypes) {
       lang_id: {
         type: DataTypes.TEXT,
         allowNull: false,
+        primaryKey: true,
         references: {
           model: "language",
           key: "id",
@@ -33,6 +34,7 @@ module.exports = function (sequelize, DataTypes) {
     },
     {
       sequelize,
+      underscored: true,
       tableName: "item_text",
       timestamps: false,
       indexes: [

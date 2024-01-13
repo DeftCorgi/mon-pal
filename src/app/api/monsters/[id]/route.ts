@@ -4,10 +4,16 @@ import {
   Monster,
   MonsterHitzone,
   MonsterHitzoneText,
+  MonsterReward,
+  MonsterRewardConditionText,
   MonsterText,
+  Item,
+  ItemText,
 } from "@/../../db/db";
 import {
+  MonsterHitzoneType,
   MonsterInfoResponseType,
+  MonsterRewardType,
   MonsterType,
 } from "../../../../../types/api/api";
 
@@ -20,12 +26,20 @@ export async function GET(request: NextApiRequest, context: any) {
     include: [{ model: MonsterText, where: { lang_id: "en" } }],
   });
 
-  const hitzones = await MonsterHitzone.findAll({
+  const hitzones: MonsterHitzoneType[] = await MonsterHitzone.findAll({
     where: { monster_id: params.id },
     include: [{ model: MonsterHitzoneText, where: { lang_id: "en" } }],
   });
 
-  const response: MonsterInfoResponseType = { monster, hitzones };
+  const rewards: MonsterRewardType[] = await MonsterReward.findAll({
+    where: { monster_id: params.id },
+    include: [
+      { model: MonsterRewardConditionText, where: { lang_id: "en" } },
+      { model: Item, include: [{ model: ItemText, where: { lang_id: "en" } }] },
+    ],
+  });
+
+  const response: MonsterInfoResponseType = { monster, hitzones, rewards };
 
   return NextResponse.json(response, { status: 200 });
 }

@@ -88,6 +88,48 @@ export type MonsterHitzoneTextType = {
   monsterHitzoneId: number;
 };
 
+export type MonsterRewardType = {
+  id: number;
+  monster_id: number;
+  condition_id: number;
+  rank: string;
+  item_id: number;
+  stack: number;
+  percentage: number;
+  monsterId: number;
+  item: Item;
+  monster_reward_condition_texts: MonsterRewardConditionText[];
+};
+
+export type MonsterRewardConditionText = {
+  condition_id: number;
+  lang_id: string;
+  name: string;
+  item: Item;
+};
+
+export interface Item {
+  id: number;
+  category: string;
+  subcategory: null;
+  rarity: number;
+  buy_price: number;
+  sell_price: number;
+  carry_limit: number;
+  points: number;
+  icon_name: string;
+  icon_color: string;
+  item_texts: ItemText[];
+}
+
+export interface ItemText {
+  item_id: number;
+  lang_id: string;
+  name: string;
+  description: string;
+  itemId: number;
+}
+
 // API responses
 
 export type ListMonstersResponseType = {
@@ -97,4 +139,5 @@ export type ListMonstersResponseType = {
 export type MonsterInfoResponseType = {
   monster: MonsterType;
   hitzones: MonsterHitzoneType[];
+  rewards: MonsterRewardType[];
 };

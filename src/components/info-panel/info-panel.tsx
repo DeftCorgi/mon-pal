@@ -2,12 +2,18 @@
 
 import React, { useContext, useEffect, useState } from "react";
 import MonstersContext from "@/store/monsters-context";
-import { MonsterType, MonsterHitzoneType } from "../../../types/api/api";
+import {
+  MonsterType,
+  MonsterHitzoneType,
+  MonsterRewardType,
+} from "../../../types/api/api";
 import Icon from "./icon/icon";
+import Rewards from "./rewards/rewards";
 
 function InfoPanel() {
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
   const [hitzoneInfo, setHitzoneInfo] = useState<MonsterHitzoneType[]>();
+  const [rewardsInfo, setRewardsInfo] = useState<MonsterRewardType[]>();
   const monstersContext = useContext(MonstersContext);
   const [loading, setLoading] = useState(false);
 
@@ -21,6 +27,7 @@ function InfoPanel() {
       const json = await result.json();
       setMonsterInfo(json.monster);
       setHitzoneInfo(json.hitzones);
+      setRewardsInfo(json.rewards);
       setLoading(false);
     };
 
@@ -33,6 +40,7 @@ function InfoPanel() {
         <h2 className="text-4xl">{monsterInfo?.monster_texts[0].name}</h2>
         <p className="text-4md">{monsterInfo?.monster_texts[0].description}</p>
         {renderHitzoneTable()}
+        {rewardsInfo && <Rewards rewards={rewardsInfo}></Rewards>}
       </div>
     );
   };
