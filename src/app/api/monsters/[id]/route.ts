@@ -34,7 +34,10 @@ export async function GET(request: NextApiRequest, context: any) {
   const rewards: MonsterRewardType[] = await MonsterReward.findAll({
     where: { monster_id: params.id },
     include: [
-      { model: MonsterRewardConditionText, where: { lang_id: "en" } },
+      {
+        model: MonsterRewardConditionText,
+        where: { lang_id: "en" },
+      },
       { model: Item, include: [{ model: ItemText, where: { lang_id: "en" } }] },
     ],
   });
