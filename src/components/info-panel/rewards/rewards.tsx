@@ -5,26 +5,44 @@ type propsType = {
   rewards: MonsterRewardType[];
 };
 
-type rankType = "LR" | "HR" | "MR";
-const ranks: rankType[] = ["LR", "HR", "MR"];
+type RankType = "LR" | "HR" | "MR";
+const ranks: RankType[] = ["LR", "HR", "MR"];
 const carveConditionIds = [
   1, 2, 3, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48,
 ];
 const breakConditionIds = Array.from({ length: 33 }, (_, index) => index + 4);
 const investigationIds = [50, 51, 52];
 
-function filterRank(rewards: MonsterRewardType[], rank: rankType) {
+function filterRank(rewards: MonsterRewardType[], rank: RankType) {
   return rewards.filter((reward) => reward.rank === rank.toUpperCase());
 }
 
 function Rewards(props: propsType) {
-  const [rankSelection, setRankSelection] = useState<rankType>("MR");
+  const [displayRanks, setDisplayRanks] = useState<RankType[]>();
+  const [rankSelection, setRankSelection] = useState<RankType>("MR");
+
+  const [LRRewards, setLRRewards] = useState<MonsterRewardType[]>([]);
+  const [HRRewards, setHRRewards] = useState<MonsterRewardType[]>([]);
+  const [MRRewards, setMRRewards] = useState<MonsterRewardType[]>([]);
+
   const [rankRewards, setRankRewards] = useState<MonsterRewardType[]>([]);
   const [breakRewards, setBreakRewards] = useState<MonsterRewardType[]>([]);
   const [carveRewards, setCarvesRewards] = useState<MonsterRewardType[]>([]);
   const [investigationRewards, setInvestigationsRewards] = useState<
     MonsterRewardType[]
   >([]);
+
+  // Find the ranks to display if there are existing entries
+  useEffect(() => {
+    const tempRanks: RankType[] = [];
+    ranks.map((rank) => {
+      if (filterRank(props.rewards, rank).length > 0) {
+        tempRanks.push(rank);
+        setRankSelection(rank);
+      }
+    });
+    setDisplayRanks(tempRanks);
+  }, [props]);
 
   // filter rewards based on selected rank
   useEffect(() => {
@@ -83,17 +101,20 @@ function Rewards(props: propsType) {
     <section id="rewards">
       <h3 className="text-2xl mb-2">Rewards</h3>
       <div id="rank-selectors" className="flex gap-5 mb-2">
-        {ranks.map((rank) => (
-          <button
-            key={rank}
-            onClick={() => setRankSelection(rank)}
-            className={`p-5 ${
-              rank == rankSelection ? "scale-110 bg-blue-300" : "bg-slate-300"
-            }`}
-          >
-            {rank}
-          </button>
-        ))}
+        {ranks.map((rank) => {
+          const button = (
+            <button
+              key={rank}
+              onClick={() => setRankSelection(rank)}
+              className={`p-5 ${
+                rank == rankSelection ? "scale-110 bg-blue-300" : "bg-slate-300"
+              }`}
+            >
+              {displayRanks?.includes(rank) && rank}
+            </button>
+          );
+          return displayRanks?.includes(rank) && button;
+        })}
       </div>
       <div
         id="rewards-columns"
