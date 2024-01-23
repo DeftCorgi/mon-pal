@@ -47,7 +47,7 @@ export async function GET(request: NextRequest, context: any) {
     });
 
     const response: MonsterInfoResponseType = { monster, hitzones, rewards };
-    console.log("GET: /api/monsters/[id] SUCCESS");
+    console.log("GET: /api/monsters/[id] SUCCESS", response);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

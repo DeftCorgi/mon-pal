@@ -23,7 +23,7 @@ export async function GET() {
     }));
 
     const response: ListMonstersResponseType = { monsters };
-    console.log("GET: /api/monsters/large SUCCESS");
+    console.log("GET: /api/monsters/large SUCCESS", response);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
