@@ -1,14 +1,16 @@
 import InfoPanel from "@/components/info-panel/info-panel";
 import MonsterSelection from "@/components/monster-selection/monster-selection";
 
+const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
+
 const fetchLargeMonsters = async () => {
-  const result = await fetch("http://localhost:3000/api/monsters/large");
+  const result = await fetch(`${API_ENDPOINT}/api/monsters/large`);
   const json = await result.json();
   return json.monsters;
 };
 
 const fetchSmallMonsters = async () => {
-  const result = await fetch("http://localhost:3000/api/monsters/small");
+  const result = await fetch(`${API_ENDPOINT}/api/monsters/small`);
   const json = await result.json();
   return json.monsters;
 };

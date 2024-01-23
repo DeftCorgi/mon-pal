@@ -12,6 +12,8 @@ import Rewards from "./rewards/rewards";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 
+const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
+
 function InfoPanel() {
   const params = useParams<{ id: string }>();
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
@@ -24,9 +26,7 @@ function InfoPanel() {
   useEffect(() => {
     setLoading(true);
     const fetchMonsterInfo = async () => {
-      const result = await fetch(
-        "http://localhost:3000/api/monsters/" + params.id
-      );
+      const result = await fetch(`${API_ENDPOINT}/api/monsters/${params.id}`);
       const json = await result.json();
       setMonsterInfo(json.monster);
       setHitzoneInfo(json.hitzones);
