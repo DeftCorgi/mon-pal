@@ -4,7 +4,10 @@ import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
 function Home() {
-  return <>Hello world</>;
+  const router = useRouter();
+  useEffect(() => router.push("/monsters/"));
+
+  return <></>;
 }
 
 export default Home;
