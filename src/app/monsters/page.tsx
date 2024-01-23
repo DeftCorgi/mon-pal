@@ -5,12 +5,14 @@ const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
 
 const fetchLargeMonsters = async () => {
   const result = await fetch(`${API_ENDPOINT}/api/monsters/large`);
+  console.log("SSR large", result);
   const json = await result.json();
   return json.monsters;
 };
 
 const fetchSmallMonsters = async () => {
   const result = await fetch(`${API_ENDPOINT}/api/monsters/small`);
+  console.log("SSR small", result);
   const json = await result.json();
   return json.monsters;
 };
