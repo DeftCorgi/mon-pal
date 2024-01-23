@@ -4,6 +4,7 @@ import MonsterSelection from "@/components/monster-selection/monster-selection";
 const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
 
 const fetchLargeMonsters = async () => {
+  console.log("FETCH started large");
   const result = await fetch(`${API_ENDPOINT}/api/monsters/large`);
   console.log("SSR large", result);
   const json = await result.json();
@@ -11,6 +12,7 @@ const fetchLargeMonsters = async () => {
 };
 
 const fetchSmallMonsters = async () => {
+  console.log("FETCH started small");
   const result = await fetch(`${API_ENDPOINT}/api/monsters/small`);
   console.log("SSR small", result);
   const json = await result.json();
