@@ -5,7 +5,8 @@ import { useEffect } from "react";
 
 function Home() {
   const router = useRouter();
-  router.push("/monsters/");
+  useEffect(() => router.push("/monsters/"));
+
   return <></>;
 }
 
