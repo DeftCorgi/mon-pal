@@ -13,7 +13,7 @@ const fetchSmallMonsters = async () => {
   return json.monsters;
 };
 
-async function Home() {
+async function MonsterHome() {
   const largeMonsters = await fetchLargeMonsters();
   const smallMonsters = await fetchSmallMonsters();
 
@@ -24,10 +24,12 @@ async function Home() {
           largeMonsters={largeMonsters}
           smallMonsters={smallMonsters}
         ></MonsterSelection>
-        <InfoPanel></InfoPanel>
+        <section className="md:basis-3/4 bg-slate-200 p-4">
+          Please select a mosnter from the left list
+        </section>
       </main>
     </>
   );
 }
 
-export default Home;
+export default MonsterHome;

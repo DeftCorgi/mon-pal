@@ -13,7 +13,7 @@ const fetchSmallMonsters = async () => {
   return json.monsters;
 };
 
-async function Home() {
+async function MonsterDetails() {
   const largeMonsters = await fetchLargeMonsters();
   const smallMonsters = await fetchSmallMonsters();
 
@@ -30,4 +30,4 @@ async function Home() {
   );
 }
 
-export default Home;
+export default MonsterDetails;
