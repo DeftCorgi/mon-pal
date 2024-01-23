@@ -6,20 +6,32 @@ import {
 } from "../../../../../types/api/api";
 
 export async function GET(request: NextRequest) {
-  // retrieve large monster names only
-  const result = await Monster.findAll({
-    attributes: ["id", "monster_texts.name"],
-    where: { size: "small" },
-    include: [{ model: MonsterText, where: { lang_id: "en" } }],
-  });
+  try {
+    console.log("GET: /api/monsters/small");
 
-  // flatten
-  const monsters = result.map((monster: MonsterType) => ({
-    id: monster.id,
-    name: monster.monster_texts[0].name,
-  }));
+    // retrieve large monster names only
+    const result = await Monster.findAll({
+      attributes: ["id", "monster_texts.name"],
+      where: { size: "small" },
+      include: [{ model: MonsterText, where: { lang_id: "en" } }],
+    });
 
-  const response: ListMonstersResponseType = { monsters };
+    // flatten
+    const monsters = result.map((monster: MonsterType) => ({
+      id: monster.id,
+      name: monster.monster_texts[0].name,
+    }));
 
-  return NextResponse.json(response, { status: 200 });
+    const response: ListMonstersResponseType = { monsters };
+    console.log("GET: /api/monsters/small SUCCESS");
+
+    return NextResponse.json(response, { status: 200 });
+  } catch (error) {
+    console.error("Error in GET function:", error);
+
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
+  }
 }
