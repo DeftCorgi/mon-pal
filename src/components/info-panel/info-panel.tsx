@@ -10,21 +10,22 @@ import {
 import Icon from "./icon/icon";
 import Rewards from "./rewards/rewards";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
 function InfoPanel() {
+  const params = useParams<{ id: string }>();
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
   const [hitzoneInfo, setHitzoneInfo] = useState<MonsterHitzoneType[]>();
   const [rewardsInfo, setRewardsInfo] = useState<MonsterRewardType[]>();
   const monstersContext = useContext(MonstersContext);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const iconsPath = "/images/monster-icons";
 
   useEffect(() => {
-    if (monstersContext.selectedMonster == -1) return;
     setLoading(true);
     const fetchMonsterInfo = async () => {
       const result = await fetch(
-        "http://localhost:3000/api/monsters/" + monstersContext.selectedMonster
+        "http://localhost:3000/api/monsters/" + params.id
       );
       const json = await result.json();
       setMonsterInfo(json.monster);
@@ -34,7 +35,7 @@ function InfoPanel() {
     };
 
     fetchMonsterInfo();
-  }, [monstersContext.selectedMonster]);
+  }, [params.id]);
 
   const renderInfo = () => {
     return (
@@ -47,6 +48,7 @@ function InfoPanel() {
             alt={monsterInfo?.monster_texts[0].name}
             height={200}
             width={200}
+            className="w-auto"
           ></Image>
           <h2 className="text-7xl">{monsterInfo?.monster_texts[0].name}</h2>
         </div>
@@ -111,7 +113,7 @@ function InfoPanel() {
   return (
     <div className="md:basis-3/4 bg-slate-200 p-4">
       {loading && <span>Loading...</span>}
-      {!loading && monsterInfo && renderInfo()}
+      {!loading && renderInfo()}
     </div>
   );
 }

@@ -1,5 +1,4 @@
-import type { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   Monster,
   MonsterHitzone,
@@ -17,7 +16,7 @@ import {
   MonsterType,
 } from "../../../../../types/api/api";
 
-export async function GET(request: NextApiRequest, context: any) {
+export async function GET(request: NextRequest, context: any) {
   const { params } = context;
 
   // retrieve large monster names only

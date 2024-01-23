@@ -1,8 +1,7 @@
-import type { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { Monster, MonsterText } from "../../../../db/db";
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   // retrieve large monster names only
   const result = await Monster.findAll({
     include: [{ model: MonsterText, where: { lang_id: "en" } }],

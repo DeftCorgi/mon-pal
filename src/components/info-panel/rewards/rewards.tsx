@@ -82,13 +82,15 @@ function Rewards(props: propsType) {
           }
           // print list items
           return (
-            <>
+            <React.Fragment
+              key={`${reward.id}_${reward.condition_id}_${reward.item_id}`}
+            >
               {printTitle && (
                 <li className="font-bold mt-2">
                   {reward.monster_reward_condition_texts[0].name}
                 </li>
               )}
-              <li key={reward.id} className="pt-0.5 relative">
+              <li className="pt-0.5 relative">
                 <Image
                   src={`/images/material-icons/${reward.item.icon_name.toLowerCase()}_${reward.item.icon_color.toLowerCase()}.webp`}
                   alt={reward.item.item_texts[0].name}
@@ -100,7 +102,7 @@ function Rewards(props: propsType) {
                   {reward.item.item_texts[0].name} | {reward.percentage}%
                 </span>
               </li>
-            </>
+            </React.Fragment>
           );
         })}
       </ul>
