@@ -2,9 +2,14 @@ import InfoPanel from "@/components/info-panel/info-panel";
 import MonsterSelection from "@/components/monster-selection/monster-selection";
 
 const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
+const port = process.env.PORT || 3000;
 
 const fetchLargeMonsters = async () => {
-  console.log("FETCH started large", `${API_ENDPOINT}/api/monsters/large`);
+  console.log(
+    "FETCH started large",
+    `${API_ENDPOINT}/api/monsters/large`,
+    `port is ${port}`
+  );
   const result = await fetch(`${API_ENDPOINT}/api/monsters/large`);
   console.log("SSR large", result);
   const json = await result.json();
