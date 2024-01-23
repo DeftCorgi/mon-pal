@@ -9,6 +9,7 @@ import {
 export async function GET(request: NextApiRequest) {
   // retrieve large monster names only
   const result = await Monster.findAll({
+    attributes: ["id", "monster_texts.name"],
     where: { size: "small" },
     include: [{ model: MonsterText, where: { lang_id: "en" } }],
   });

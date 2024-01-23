@@ -9,6 +9,7 @@ import {
 } from "../../../types/api/api";
 import Icon from "./icon/icon";
 import Rewards from "./rewards/rewards";
+import Image from "next/image";
 
 function InfoPanel() {
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
@@ -16,6 +17,7 @@ function InfoPanel() {
   const [rewardsInfo, setRewardsInfo] = useState<MonsterRewardType[]>();
   const monstersContext = useContext(MonstersContext);
   const [loading, setLoading] = useState(false);
+  const iconsPath = "/images/monster-icons";
 
   useEffect(() => {
     if (monstersContext.selectedMonster == -1) return;
@@ -37,7 +39,18 @@ function InfoPanel() {
   const renderInfo = () => {
     return (
       <div className="flex flex-col gap-8">
-        <h2 className="text-4xl">{monsterInfo?.monster_texts[0].name}</h2>
+        <div className="flex flex-col items-center justify-center gap-2">
+          <Image
+            src={`${iconsPath}/${monsterInfo?.monster_texts[0].name
+              .replace(" ", "_")
+              .toLowerCase()}_icon.webp`}
+            alt={monsterInfo?.monster_texts[0].name}
+            height={200}
+            width={200}
+          ></Image>
+          <h2 className="text-7xl">{monsterInfo?.monster_texts[0].name}</h2>
+        </div>
+
         <p className="text-4md">{monsterInfo?.monster_texts[0].description}</p>
         {renderHitzoneTable()}
         {rewardsInfo && <Rewards rewards={rewardsInfo}></Rewards>}

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MonsterRewardType } from "../../../../types/api/api";
+import Image from "next/image";
 
 type propsType = {
   rewards: MonsterRewardType[];
@@ -83,12 +84,21 @@ function Rewards(props: propsType) {
           return (
             <>
               {printTitle && (
-                <li className="font-bold">
+                <li className="font-bold mt-2">
                   {reward.monster_reward_condition_texts[0].name}
                 </li>
               )}
-              <li key={reward.id}>
-                {reward.item.item_texts[0].name} | {reward.percentage}%
+              <li key={reward.id} className="pt-0.5 relative">
+                <Image
+                  src={`/images/material-icons/${reward.item.icon_name.toLowerCase()}_${reward.item.icon_color.toLowerCase()}.webp`}
+                  alt={reward.item.item_texts[0].name}
+                  width={27}
+                  height={27}
+                  className="inline-block bg-slate-800 mr-0.5"
+                ></Image>
+                <span className="inline-block leading-4 relative top-0.5">
+                  {reward.item.item_texts[0].name} | {reward.percentage}%
+                </span>
               </li>
             </>
           );
