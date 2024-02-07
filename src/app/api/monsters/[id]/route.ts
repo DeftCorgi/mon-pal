@@ -18,7 +18,7 @@ import {
 
 export async function GET(request: NextRequest, context: any) {
   try {
-    console.log("GET: /api/monsters/[id]");
+    console.debug("GET: /api/monsters/[id]");
     const { params } = context;
 
     // retrieve large monster names only
@@ -47,7 +47,7 @@ export async function GET(request: NextRequest, context: any) {
     });
 
     const response: MonsterInfoResponseType = { monster, hitzones, rewards };
-    console.log("GET: /api/monsters/[id] SUCCESS", response);
+    // console.debug("GET: /api/monsters/[id] SUCCESS", response);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {

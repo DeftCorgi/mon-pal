@@ -7,7 +7,7 @@ import {
 
 export async function GET(request: NextRequest) {
   try {
-    console.log("GET: /api/monsters/small");
+    console.debug("GET: /api/monsters/small");
 
     // retrieve large monster names only
     const result = await Monster.findAll({
@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     }));
 
     const response: ListMonstersResponseType = { monsters };
-    console.log("GET: /api/monsters/small SUCCESS", response);
+    // console.debug("GET: /api/monsters/small SUCCESS", response);
 
     return NextResponse.json(response, { status: 200 });
   } catch (error) {
