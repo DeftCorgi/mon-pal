@@ -8,13 +8,16 @@ import {
   MonsterText,
   Item,
   ItemText,
+  Quest,
 } from "@/../../db/db";
 import {
   MonsterHitzoneType,
   MonsterInfoResponseType,
   MonsterRewardType,
   MonsterType,
+  QuestType,
 } from "../../../../../types/api/api";
+import QuestInfo from "@/components/info-panel/quest-info/quest-info";
 
 export async function GET(request: NextRequest, context: any) {
   try {
@@ -29,7 +32,6 @@ export async function GET(request: NextRequest, context: any) {
 
     const hitzones: MonsterHitzoneType[] = await MonsterHitzone.findAll({
       where: { monster_id: params.id },
-      include: [{ model: MonsterHitzoneText, where: { lang_id: "en" } }],
     });
 
     const rewards: MonsterRewardType[] = await MonsterReward.findAll({
@@ -46,7 +48,17 @@ export async function GET(request: NextRequest, context: any) {
       ],
     });
 
-    const response: MonsterInfoResponseType = { monster, hitzones, rewards };
+    const quests: QuestType[] = await Quest.findAll({
+      includeIgnoreAttributes: false,
+      include: [{ model: Monster, where: { id: params.id } }],
+    });
+
+    const response: MonsterInfoResponseType = {
+      monster,
+      hitzones,
+      rewards,
+      quests,
+    };
     // console.debug("GET: /api/monsters/[id] SUCCESS", response);
 
     return NextResponse.json(response, { status: 200 });

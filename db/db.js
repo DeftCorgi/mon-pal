@@ -11,6 +11,8 @@ import createMonsterReward from "./models/monster_reward";
 import createMonsterRewardConditionText from "./models/monster_reward_condition_text";
 import createItem from "./models/item";
 import createItemText from "./models/item_text";
+import createQuestMonster from "./models/quest_monster";
+import createQuest from "./models/quest";
 
 // Initialize models
 const Language = createLanguageModel(sequelizeConfig, DataTypes);
@@ -26,6 +28,8 @@ const MonsterRewardConditionText = createMonsterRewardConditionText(
 );
 const Item = createItem(sequelizeConfig, DataTypes);
 const ItemText = createItemText(sequelizeConfig, DataTypes);
+const QuestMonster = createQuestMonster(sequelizeConfig, DataTypes);
+const Quest = createQuest(sequelizeConfig, DataTypes);
 
 // Initialize associations
 Monster.hasMany(MonsterText);
@@ -44,11 +48,15 @@ MonsterReward.hasMany(MonsterRewardConditionText, {
   foreignKey: "condition_id",
   sourceKey: "condition_id",
 });
+
 MonsterReward.belongsTo(Item);
 MonsterRewardConditionText.belongsTo(MonsterReward, {
   foreignKey: "condition_id",
   targetKey: "condition_id",
 });
+
+Monster.belongsToMany(Quest, { through: "quest_monster" });
+Quest.belongsToMany(Monster, { through: "quest_monster" });
 
 Item.hasMany(ItemText);
 ItemText.belongsTo(Item, { foreignKey: "item_id" });
@@ -63,4 +71,5 @@ export {
   MonsterRewardConditionText,
   Item,
   ItemText,
+  Quest,
 };

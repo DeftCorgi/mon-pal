@@ -11,6 +11,7 @@ import Icon from "./icon/icon";
 import Rewards from "./rewards/rewards";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import QuestInfo from "./quest-info/quest-info";
 
 const API_ENDPOINT = process.env["API_ENDPOINT"] ?? "http://localhost:3000";
 
@@ -19,6 +20,7 @@ function InfoPanel() {
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
   const [hitzoneInfo, setHitzoneInfo] = useState<MonsterHitzoneType[]>();
   const [rewardsInfo, setRewardsInfo] = useState<MonsterRewardType[]>();
+  const [questInfo, setQuestInfo] = useState<MonsterRewardType[]>();
   const monstersContext = useContext(MonstersContext);
   const [loading, setLoading] = useState(true);
   const iconsPath = "/images/monster-icons";
@@ -31,6 +33,7 @@ function InfoPanel() {
       setMonsterInfo(json.monster);
       setHitzoneInfo(json.hitzones);
       setRewardsInfo(json.rewards);
+      setQuestInfo(json.rewards);
       setLoading(false);
     };
 
@@ -56,6 +59,7 @@ function InfoPanel() {
         <p className="text-4md">{monsterInfo?.monster_texts[0].description}</p>
         {renderHitzoneTable()}
         {rewardsInfo && <Rewards rewards={rewardsInfo}></Rewards>}
+        {questInfo && <QuestInfo></QuestInfo>}
       </div>
     );
   };

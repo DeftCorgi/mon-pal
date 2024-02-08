@@ -63,6 +63,7 @@ export type MonsterType = {
   ailment_mud: boolean;
   ailment_effluvia: boolean;
   monster_texts: MonsterText[];
+  quests: any;
 };
 
 export type MonsterHitzoneType = {
@@ -99,6 +100,18 @@ export type MonsterRewardType = {
   monsterId: number;
   item: Item;
   monster_reward_condition_texts: MonsterRewardConditionText[];
+};
+
+export type QuestType = {
+  id: number;
+  order_id: number;
+  category: string;
+  rank: string;
+  stars: number;
+  stars_raw: number;
+  quest_type: string;
+  location_id: number;
+  zenny: number;
 };
 
 export type MonsterRewardConditionText = {
@@ -140,4 +153,5 @@ export type MonsterInfoResponseType = {
   monster: MonsterType;
   hitzones: MonsterHitzoneType[];
   rewards: MonsterRewardType[];
+  quests: QuestType[];
 };
