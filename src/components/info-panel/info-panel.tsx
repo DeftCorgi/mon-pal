@@ -6,6 +6,7 @@ import {
   MonsterType,
   MonsterHitzoneType,
   MonsterRewardType,
+  QuestType,
 } from "../../../types/api/api";
 import Icon from "./icon/icon";
 import Rewards from "./rewards/rewards";
@@ -20,7 +21,7 @@ function InfoPanel() {
   const [monsterInfo, setMonsterInfo] = useState<MonsterType>();
   const [hitzoneInfo, setHitzoneInfo] = useState<MonsterHitzoneType[]>();
   const [rewardsInfo, setRewardsInfo] = useState<MonsterRewardType[]>();
-  const [questInfo, setQuestInfo] = useState<MonsterRewardType[]>();
+  const [questInfo, setQuestInfo] = useState<QuestType[]>();
   const monstersContext = useContext(MonstersContext);
   const [loading, setLoading] = useState(true);
   const iconsPath = "/images/monster-icons";
@@ -33,7 +34,7 @@ function InfoPanel() {
       setMonsterInfo(json.monster);
       setHitzoneInfo(json.hitzones);
       setRewardsInfo(json.rewards);
-      setQuestInfo(json.rewards);
+      setQuestInfo(json.quests);
       setLoading(false);
     };
 
@@ -59,7 +60,7 @@ function InfoPanel() {
         <p className="text-4md">{monsterInfo?.monster_texts[0].description}</p>
         {renderHitzoneTable()}
         {rewardsInfo && <Rewards rewards={rewardsInfo}></Rewards>}
-        {questInfo && <QuestInfo></QuestInfo>}
+        {questInfo && <QuestInfo quests={questInfo}></QuestInfo>}
       </div>
     );
   };
