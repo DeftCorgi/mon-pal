@@ -32,6 +32,7 @@ export async function GET(request: NextRequest, context: any) {
 
     const hitzones: MonsterHitzoneType[] = await MonsterHitzone.findAll({
       where: { monster_id: params.id },
+      include: [MonsterHitzoneText],
     });
 
     const rewards: MonsterRewardType[] = await MonsterReward.findAll({
